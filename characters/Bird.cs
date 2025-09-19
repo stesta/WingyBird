@@ -3,11 +3,9 @@ using System;
 
 public partial class Bird : CharacterBody2D
 {
-	// Gravity strength (pixels per second squared)
 	[Export]
 	public float Gravity = 800.0f;
 
-	// Current velocity
 	private Vector2 _velocity = Vector2.Zero;
 	private AnimationPlayer _animationPlayer;
 
@@ -27,17 +25,14 @@ public partial class Bird : CharacterBody2D
 	{
 		// Apply gravity
 		_velocity.Y += Gravity * (float)delta;
-		// Move the character
 		Velocity = _velocity;
 		MoveAndSlide();
+
 		// Update _velocity from the result (in case of collision)
 		_velocity = Velocity;
-
-		// Check for collisions after moving
 		CheckCollisions();
 	}
 
-	// Checks for collisions after movement
 	private void CheckCollisions()
 	{
 		for (int i = 0; i < GetSlideCollisionCount(); i++)
@@ -50,7 +45,6 @@ public partial class Bird : CharacterBody2D
 		}
 	}
 
-	// Call this to make the bird flap upward (like Flappy Bird)
 	public void Flap()
 	{
 		_velocity.Y = -FlapStrength;
