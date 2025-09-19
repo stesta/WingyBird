@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=4 uid="uid://qrdty25ck34d"]
+[gd_scene load_steps=7 format=4 uid="uid://qrdty25ck34d"]
 
 [ext_resource type="Texture2D" uid="uid://btd83814eei1r" path="res://assets/Tilemap/tilemap.png" id="1_0oms5"]
 [ext_resource type="Script" uid="uid://cj4r0pxkhim58" path="res://characters/Gate.cs" id="1_7k41f"]
@@ -244,6 +244,9 @@ sources/0 = SubResource("TileSetAtlasSource_7k41f")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0oms5"]
 size = Vector2(76.5, 678.25)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7k41f"]
+size = Vector2(6, 135)
+
 [node name="Gate" type="StaticBody2D"]
 script = ExtResource("1_7k41f")
 
@@ -258,3 +261,11 @@ shape = SubResource("RectangleShape2D_0oms5")
 [node name="BottomCollider" type="CollisionShape2D" parent="."]
 position = Vector2(472, 725)
 shape = SubResource("RectangleShape2D_0oms5")
+
+[node name="GateCleared" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(554, 300)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GateCleared"]
+position = Vector2(-6, 25)
+shape = SubResource("RectangleShape2D_7k41f")

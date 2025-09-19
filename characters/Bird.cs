@@ -13,6 +13,9 @@ public partial class Bird : CharacterBody2D
 	[Export]
 	public float FlapStrength = 300.0f;
 
+	[Signal]
+	public delegate void BirdCollidedEventHandler();
+
 	public override void _PhysicsProcess(double delta)
 	{
 		// Apply gravity
@@ -22,6 +25,22 @@ public partial class Bird : CharacterBody2D
 		MoveAndSlide();
 		// Update _velocity from the result (in case of collision)
 		_velocity = Velocity;
+
+		// Check for collisions after moving
+		CheckCollisions();
+	}
+
+	// Checks for collisions after movement
+	private void CheckCollisions()
+	{
+		for (int i = 0; i < GetSlideCollisionCount(); i++)
+		{
+			KinematicCollision2D collision = GetSlideCollision(i);
+			if (collision != null)
+			{
+				EmitSignal(SignalName.BirdCollided);
+			}
+		}
 	}
 
 	// Call this to make the bird flap upward (like Flappy Bird)

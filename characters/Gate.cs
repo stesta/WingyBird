@@ -6,6 +6,18 @@ public partial class Gate : StaticBody2D
 	[Export]
 	public float Speed = 100.0f;
 
+	[Signal]
+	public delegate void GateClearedEventHandler();
+
+	public override void _Ready()
+	{
+		var gateCleared = GetNodeOrNull<Area2D>("%GateCleared");
+		gateCleared.BodyEntered += (body) =>
+		{
+			EmitSignal(SignalName.GateCleared);
+		};
+	}
+
 	public override void _PhysicsProcess(double delta)
 	{
 		// Move the gate left based on speed
