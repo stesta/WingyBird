@@ -4,6 +4,12 @@ using System;
 public partial class Main : Node2D
 {
     public int Score = 0;
+    private Label _scoreDisplay;
+
+    public override void _Ready()
+    {
+        _scoreDisplay = GetNode<Label>("%ScoreDisplay");
+    }
 
     private void Restart()
     {
@@ -19,7 +25,7 @@ public partial class Main : Node2D
     public void GateClearedSignalHandler()
     {
         Score++;
-        GD.Print($"Score: {Score}");
+        _scoreDisplay.Text = $"Score: {Score}";
     }
 
     public void BirdCollidedSignalHandler()

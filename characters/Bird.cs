@@ -9,12 +9,19 @@ public partial class Bird : CharacterBody2D
 
 	// Current velocity
 	private Vector2 _velocity = Vector2.Zero;
+	private AnimationPlayer _animationPlayer;
 
 	[Export]
 	public float FlapStrength = 300.0f;
 
 	[Signal]
 	public delegate void BirdCollidedEventHandler();
+
+	public override void _Ready()
+	{
+		_animationPlayer = GetNode<AnimationPlayer>("%AnimationPlayer");
+		_animationPlayer.Play("default");
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -47,6 +54,13 @@ public partial class Bird : CharacterBody2D
 	public void Flap()
 	{
 		_velocity.Y = -FlapStrength;
+		_animationPlayer.Play("flap");
+	}
+
+	public void Unflap()
+	{
+		_animationPlayer.Play("unflap");
+		_animationPlayer.Play("default");
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -54,6 +68,10 @@ public partial class Bird : CharacterBody2D
 		if (@event.IsActionPressed("flap"))
 		{
 			Flap();
+		}
+		if (@event.IsActionReleased("flap"))
+		{
+			Unflap();
 		}
 	}
 }

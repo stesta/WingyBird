@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://docrwbkvtfjnu"]
+[gd_scene load_steps=8 format=4 uid="uid://docrwbkvtfjnu"]
 
 [ext_resource type="Script" uid="uid://xapttywm57i6" path="res://Main.cs" id="1_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://daymwq5kficef" path="res://assets/Tilemap/tilemap-backgrounds.png" id="1_ig7tw"]
@@ -62,6 +62,9 @@ texture_region_size = Vector2i(24, 24)
 tile_size = Vector2i(24, 24)
 sources/0 = SubResource("TileSetAtlasSource_0xm2m")
 
+[sub_resource type="LabelSettings" id="LabelSettings_1bvp3"]
+font_color = Color(0, 0, 0, 1)
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_1bvp3")
 
@@ -72,6 +75,17 @@ tile_set = SubResource("TileSet_h2yge")
 [node name="Bird" parent="." groups=["Player"] instance=ExtResource("2_0xm2m")]
 position = Vector2(197, 363)
 scale = Vector2(3.041667, 3.041667)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ScoreDisplay" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 34.0
+offset_top = 40.0
+offset_right = 86.0
+offset_bottom = 63.0
+text = "Score: 0  "
+label_settings = SubResource("LabelSettings_1bvp3")
 
 [node name="GatePool" type="Node" parent="."]
 
@@ -89,7 +103,6 @@ position = Vector2(861, -184)
 [node name="Gate5" parent="GatePool" instance=ExtResource("3_h2yge")]
 position = Vector2(1125, -63)
 
-[connection signal="RestartGame" from="." to="." method="Restart"]
 [connection signal="BirdCollided" from="Bird" to="." method="BirdCollidedSignalHandler"]
 [connection signal="GateCleared" from="GatePool/Gate" to="." method="GateClearedSignalHandler"]
 [connection signal="GateCleared" from="GatePool/Gate2" to="." method="GateClearedSignalHandler"]

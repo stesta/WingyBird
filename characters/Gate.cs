@@ -21,9 +21,11 @@ public partial class Gate : StaticBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		// Move the gate left based on speed
-		if (Position.X < -600) // If the gate is off-screen to the left
+		// If the gate is off-screen to the left
+		if (Position.X < -600)
 		{
-			Position = Position with { X = 800 };
+			var yPos = GD.RandRange(-250, 250);
+			Position = Position with { X = 800, Y = yPos };
 		}
 		else
 		{

@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bu5fskcmsrm3i"]
+[gd_scene load_steps=11 format=3 uid="uid://bu5fskcmsrm3i"]
 
 [ext_resource type="Script" uid="uid://b47wnmc0tf67l" path="res://characters/Bird.cs" id="1_8h0tt"]
 [ext_resource type="Texture2D" uid="uid://54kjfldubkok" path="res://assets/Tiles/Characters/tile_0024.png" id="1_o1saw"]
+[ext_resource type="Texture2D" uid="uid://cyavwma1x6mjl" path="res://assets/Tiles/Characters/tile_0025.png" id="3_hkpfu"]
+[ext_resource type="Texture2D" uid="uid://7i7nsve7jy43" path="res://assets/Tiles/Characters/tile_0026.png" id="4_o77s1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f4a0m"]
 radius = 7.0
@@ -48,10 +50,42 @@ tracks/1/keys = {
 "values": [SubResource("CircleShape2D_f4a0m")]
 }
 
+[sub_resource type="Animation" id="Animation_hkpfu"]
+resource_name = "flap"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterBody2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("1_o1saw"), ExtResource("3_hkpfu"), ExtResource("4_o77s1")]
+}
+
+[sub_resource type="Animation" id="Animation_o77s1"]
+resource_name = "unflap"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterBody2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("1_o1saw"), ExtResource("1_o1saw"), ExtResource("1_o1saw")]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hkpfu"]
 _data = {
 &"RESET": SubResource("Animation_o1saw"),
-&"default": SubResource("Animation_8h0tt")
+&"default": SubResource("Animation_8h0tt"),
+&"flap": SubResource("Animation_hkpfu"),
+&"unflap": SubResource("Animation_o77s1")
 }
 
 [node name="Bird" type="CharacterBody2D"]
@@ -67,6 +101,7 @@ visible = false
 shape = SubResource("CircleShape2D_f4a0m")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_hkpfu")
 }
