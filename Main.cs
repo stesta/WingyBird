@@ -7,12 +7,15 @@ public partial class Main : Node2D
     private Label _scoreDisplay;
     private CanvasLayer _gameOverDisplay;
     private Button _reset;
+    private Area2D _outOfBounds;
+
 
     public override void _Ready()
     {
         _scoreDisplay = GetNode<Label>("%ScoreDisplay");
         _gameOverDisplay = GetNode<CanvasLayer>("%GameOver");
         _reset = GetNode<Button>("%Reset");
+        _outOfBounds = GetNode<Area2D>("%OutOfBounds");
 
         _reset.Pressed += () =>
         {
@@ -23,6 +26,14 @@ public partial class Main : Node2D
             if (currentScene != null)
             {
                 GetTree().ReloadCurrentScene();
+            }
+        };
+
+        _outOfBounds.BodyEntered += (body) =>
+        {
+            if (body.IsInGroup("Player"))
+            {
+                BirdCollidedSignalHandler();
             }
         };
     }
