@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://docrwbkvtfjnu"]
+[gd_scene load_steps=10 format=4 uid="uid://docrwbkvtfjnu"]
 
 [ext_resource type="Script" uid="uid://xapttywm57i6" path="res://Main.cs" id="1_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://daymwq5kficef" path="res://assets/Tilemap/tilemap-backgrounds.png" id="1_ig7tw"]
@@ -65,6 +65,12 @@ sources/0 = SubResource("TileSetAtlasSource_0xm2m")
 [sub_resource type="LabelSettings" id="LabelSettings_1bvp3"]
 font_color = Color(0, 0, 0, 1)
 
+[sub_resource type="Theme" id="Theme_1bvp3"]
+default_font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_lquwl"]
+font_size = 48
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_1bvp3")
 
@@ -76,6 +82,8 @@ tile_set = SubResource("TileSet_h2yge")
 position = Vector2(197, 363)
 scale = Vector2(3.041667, 3.041667)
 
+[node name="OutOfBounds" type="Area2D" parent="."]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="ScoreDisplay" type="Label" parent="CanvasLayer"]
@@ -86,6 +94,35 @@ offset_right = 86.0
 offset_bottom = 63.0
 text = "Score: 0  "
 label_settings = SubResource("LabelSettings_1bvp3")
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+offset_left = 414.0
+offset_top = 129.0
+offset_right = 768.0
+offset_bottom = 483.0
+color = Color(0, 0, 0, 0.57254905)
+
+[node name="Reset" type="Button" parent="GameOver"]
+unique_name_in_owner = true
+process_mode = 2
+offset_left = 556.0
+offset_top = 353.0
+offset_right = 628.0
+offset_bottom = 395.0
+theme = SubResource("Theme_1bvp3")
+text = "Reset"
+
+[node name="Label" type="Label" parent="GameOver"]
+offset_left = 464.0
+offset_top = 232.0
+offset_right = 724.0
+offset_bottom = 299.0
+text = "Game Over"
+label_settings = SubResource("LabelSettings_lquwl")
 
 [node name="GatePool" type="Node" parent="."]
 

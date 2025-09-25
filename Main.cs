@@ -5,21 +5,26 @@ public partial class Main : Node2D
 {
     public int Score = 0;
     private Label _scoreDisplay;
+    private CanvasLayer _gameOverDisplay;
+    private Button _reset;
 
     public override void _Ready()
     {
         _scoreDisplay = GetNode<Label>("%ScoreDisplay");
-    }
+        _gameOverDisplay = GetNode<CanvasLayer>("%GameOver");
+        _reset = GetNode<Button>("%Reset");
 
-    private void Restart()
-    {
-        var currentScene = GetTree().CurrentScene;
-        if (currentScene != null)
+        _reset.Pressed += () =>
         {
-            GetTree().ReloadCurrentScene();
-        }
+            GetTree().Paused = false;
+            _gameOverDisplay.Visible = false;
 
-        GetTree().Paused = false;
+            var currentScene = GetTree().CurrentScene;
+            if (currentScene != null)
+            {
+                GetTree().ReloadCurrentScene();
+            }
+        };
     }
 
     public void GateClearedSignalHandler()
@@ -30,6 +35,7 @@ public partial class Main : Node2D
 
     public void BirdCollidedSignalHandler()
     {
+        _gameOverDisplay.Visible = true;
         GetTree().Paused = true;
         GD.Print("Game Over!");
     }
